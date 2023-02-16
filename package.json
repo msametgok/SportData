@@ -1,0 +1,16 @@
+{
+  "name": "spordata",
+  "version": "1.0.0",
+  "description": "SportData App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sport",
+    "data",
+    "web"
+  ],
+  "author": "Mehmet Samet Gok",
+  "license": "ISC"
+}
