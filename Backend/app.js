@@ -3,13 +3,9 @@ const mongoose = require("mongoose");
 const pageRoute = require('./routes/pageRoute')
 const userRoute = require('./routes/userRoute')
 
-
-//mongodb+srv://msametgok:<password>@sportdatadb.pllmv0s.mongodb.net/?retryWrites=true&w=majority
-//mongodb://127.0.0.1/sportdata
-
 mongoose.set("strictQuery", false);
 //Connect DB
-mongoose.connect("mongodb+srv://msametgok:eAjn5pwVTtEPii9t@sportdatadb.pllmv0s.mongodb.net/?retryWrites=true&w=majority").then(() => {
+mongoose.connect("mongodb://127.0.0.1/sportdata").then(() => {
   console.log("Connection successful");
 }).catch(err => {
     console.log(err);
