@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
@@ -6,18 +7,14 @@ const userSchema = new Schema({
   // Role e bak belki degistirebelirim
   role: {
     type: String,
-    enum: ["student", "admin"],
+    //enum: ["student", "admin"], WE DONT NEED THIS USAGE FOR THIS PROJECT
     default: "student",
   },
-  
-  name: {
-    type: String,
-    
-  },
-  lastName: {
-    type: String,
-    
-  },
+
+  name: String,
+
+  lastName: String,
+
   tcNo: {
     type: String,
     unique: true,
@@ -26,40 +23,40 @@ const userSchema = new Schema({
     type: String,
     unique: true,
   },
-  password: {
-    type: String,
-    
-  },
+  password: String,
   //Telefon detayli bak
-  phoneNumber: {
-    type: Number,
-    
-  },
-  address: {
-    type: String,
-    
-  },
-  emergencyNumber: {
-    type: Number,
-    
-  },
-  age: {
-    type: Number,
-    
-  },
-  weight: {
-    type: Number,
-    
-  },
-  height: {
-    type: Number,
-    
-  },
-  branch: {
-    type: String,
-    
-  },
+  phoneNumber: Number,
 
+  address: String,
+
+  emergencyNumber: Number,
+
+  emergencyPerson: String,
+
+  birthdate: Date,
+
+  age: Number,
+
+  weight: Number,
+
+  height: Number,
+
+  branch: String,
+});
+
+userSchema.pre("save", function (next) {
+  const user = this;
+
+  if (!user.isModified("password")) return next();
+
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) return next(err);
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next();
+      user.password = hash;
+      next();
+    });
+  });
 });
 
 const User = mongoose.model("User", userSchema);
